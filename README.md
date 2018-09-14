@@ -42,7 +42,7 @@ curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
 Now, let's build our stratum and run it (this stage assumes you already have Redis properly installed and running)
 
 ```shell
-git clone https://github.com/blackjok3rtt/knomp
+git clone https://github.com/StakedChain/knomp
 cd knomp
 npm install
 npm start
