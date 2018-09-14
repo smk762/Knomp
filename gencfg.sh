@@ -9,7 +9,7 @@ declare -a skip=("BEER" "PIZZA")
 stratumport=3030
 
 coinsdir=/home/$USER/Knomp/coins
-poolconfigdir=/home/$USER/pool_configs
+poolconfigdir=/home/$USER/Knomp/pool_configs
 
 coinstpl=/home/$USER/Knomp/coins.template
 pooltpl=/home/$USER/Knomp/poolconfigs.template
