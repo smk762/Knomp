@@ -17,41 +17,50 @@ Install
 -------------
 Some initial setup
 ```shell
-# The following packages are needed to build both Komodo and this stratum:
-sudo apt-get update
-sudo apt-get install build-essential pkg-config libc6-dev m4 g++-multilib autoconf libtool ncurses-dev unzip git python python-zmq zlib1g-dev wget libcurl4-openssl-dev bsdmainutils automake curl libboost-dev libboost-system-dev libsodium-dev -y
-```
-Now, let's build Komodo
-```shell
-git clone https://github.com/StakedChain/komodo
-cd komodo
-zcutil/fetch-params.sh
-zcutil/build.sh -j8
-```
-
-https://raw.githubusercontent.com/StakedChain/PoS_scripts/master/pool_cfg_generator/gencfg.sh
-
-That script will generate the pool config for you. Edit the address to the address you want to mine to and check the folders point to wher Knomp is installed. The default directories are already there. There is also the stratum port, each coin needs a diffrent port. 
-
- We need node and npminstalled
-
-```shell
 cd ~
-curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+git clone https://github.com/StakedChain/knomp
+cd ~/Knomp/install
+./buildkomodo.sh
+./installdeps.sh
+./buildredis.sh
 ```
-Now, let's build our stratum and run it (this stage assumes you already have Redis properly installed and running)
+To start redis we need to use a screen or a tmux session to put it into the background, so open one of these and then follow this:
+```shell
+cd ~/Knomp/install/redis-stable/src
+./redis-server ../redis.conf
+```
+Then disconect from that tmux or screen session. 
+
+To generate a pool for every STAKED chain currently active, we need to start all the chains. To do this we run `./startStaked.sh`
+
+While waiting for the chains to start, we can edit our `gencfg.sh` script with the address you will be solo mining to, and also change the stratum port if you want to do that. 
+
+Once all these chains have synced up we can run our generator script: `./gencfg.sh`
+
+There are 2 files generated in this folder from this script, `stratumufwenable` and `stratumufwdisable` these scripts unblock and block the stratum ports we will be using. Just run enable, to unblock the ports and disable to block them again.
+
+Here we will install and run the stratum.
 
 ```shell
-git clone https://github.com/StakedChain/knomp
-cd knomp
+cd ~/Knomp
 npm install
 npm start
+```
+Thats it. You pool is configured for solo mining. For a public pool, you would need to edit the template files and run `gencfg.sh` again or edit each pool_config generate file manually.
+
+To check which coin has which port:
+```shell
+cd ~/Knomp/pool_configs
+ls (to list the coins)
+cat <coin name> (to print the config file, from there find the port parameter)
 ```
 
 [Further info on config](https://github.com/zone117x/node-open-mining-portal)
 
 License
 -------
+
+Forked from @webworker01's great work who forked it from:
 
 Forked from ComputerGenie repo (deleted)
 
