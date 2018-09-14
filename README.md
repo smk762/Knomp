@@ -18,7 +18,7 @@ Install
 Some initial setup
 ```shell
 cd ~
-git clone https://github.com/StakedChain/knomp
+git clone https://github.com/StakedChain/Knomp
 cd ~/Knomp/install
 ./buildkomodo.sh
 ./installdeps.sh
