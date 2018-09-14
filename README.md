@@ -24,17 +24,29 @@ cd ~/Knomp/install
 ./installdeps.sh
 ./buildredis.sh
 ```
+To start redis we need to use a screen or a tmux session to put it into the background, so open one of these and then follow this:
+```shell
+cd ~/Knomp/install/redis-stable/src
+./redis-server ../redis.conf
+```
+Then disconect from that tmux or screen session. 
 
 To generate a pool for every STAKED chain currently active, we need to start all the chains. To do this we run `./startStaked.sh`
 
+While waiting for the chains to start, we can edit our `gencfg.sh` script with the address you will be solo mining to, and also change the stratum port if you want to do that. 
+
 Once all these chains have synced up we can run our generator script: `./gencfg.sh`
+
+There are 2 files generated in this folder from this script, `stratumufwenable` and `stratumufwdisable` these scripts unblock and block the stratum ports we will be using. Just run enable, to unblock the ports and disable to block them again.
+
+Here we will install and run the stratum.
 
 ```shell
 cd ~/Knomp
 npm install
 npm start
 ```
-Thats it. You pool is configured for solo mining. For a public pool, you would need to edit the template files to configure a payment processor manually.
+Thats it. You pool is configured for solo mining. For a public pool, you would need to edit the template files and run `gencfg.sh` again or edit each pool_config generate file manually.
 
 To check which coin has which port:
 ```shell
@@ -47,6 +59,8 @@ cat <coin name> (to print the config file, from there find the port parameter)
 
 License
 -------
+
+Forked from @webworker01's great work who forked it from:
 
 Forked from ComputerGenie repo (deleted)
 
