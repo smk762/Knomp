@@ -33,7 +33,7 @@
     "website": {
         "enabled": true,
         "host": "127.0.0.1",
-        "port": 8080,
+        "port": 80,
         "stratumHost": "127.0.0.1",
         "stats": {
             "updateInterval": 30,
