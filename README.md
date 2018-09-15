@@ -1,6 +1,8 @@
 ## Mining stratum for Komodo and Komodo assetchains.
 ### (READY FOR TESTING - Share distribution needs testing)
 
+If starting a fresh VPS, use https://github.com/webworker01/freshubuntu to get you started.
+
 Requirements
 ------------
 * node v10+
