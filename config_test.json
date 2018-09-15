@@ -32,9 +32,9 @@
 
     "website": {
         "enabled": true,
-        "host": "95.179.180.171",
-        "port": 8080,
-        "stratumHost": "95.179.180.171",
+        "host": "127.0.0.1",
+        "port": 80,
+        "stratumHost": "127.0.0.1",
         "stats": {
             "updateInterval": 30,
             "historicalRetention": 14400,
