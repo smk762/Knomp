@@ -21,6 +21,9 @@ ufwdisablefile=stratufwdisable
 cointemplate=$(<$coinstpl)
 pooltemplate=$(<$pooltpl)
 
+rm -rf $coinsdir
+rm -rf $poolconfigdir
+
 mkdir -p $coinsdir
 mkdir -p $poolconfigdir
 
