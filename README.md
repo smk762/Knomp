@@ -45,7 +45,7 @@ While waiting for the chains to start, we can edit our `gencfg.sh` script with t
 
 Once all these chains have synced up we can run our generator script: `./gencfg.sh`
 
-There are 2 files generated in this folder from this script, `stratumufwenable` and `stratumufwdisable` these scripts unblock and block the stratum ports we will be using. Just run enable, to unblock the ports and disable to block them again.
+There are 2 files generated in this folder from this script, `stratufwenable` and `stratufwdisable` these scripts unblock and block the stratum ports we will be using. Just run enable, to unblock the ports and disable to block them again.
 
 Here we will install and run the stratum.
 ```shell
