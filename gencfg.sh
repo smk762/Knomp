@@ -1,4 +1,3 @@
-
 #!/bin/bash
 # Put the address to mine to here, this is smk762's please change to yours.
 walletaddress=RUpV4Mov3Soj34iVNq3hPMCoUFYtB1Jzuf
