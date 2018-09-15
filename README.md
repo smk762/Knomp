@@ -57,6 +57,12 @@ To run Knomp, you need to have a config.json file in the ~/Knomp directory. For 
 
 `cp config_example.json config.json`
 
+If you want to enable the website, use the config_test.json file. As the name suggests, it's in test phase.
+
+`cp config_example.json config.json` 
+
+You'll need a webserver like nginx installed and configured. See here for a basic guide - https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-16-04
+
 Now we can start Knomp!
 
 `npm start`
