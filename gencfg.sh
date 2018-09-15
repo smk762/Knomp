@@ -30,11 +30,11 @@ rm $ufwdisablefile
 #Get Asset Chain Names from json file
 ac_json=$(curl https://raw.githubusercontent.com/StakedChain/StakedNotary/master/assetchains.json 2>/dev/null)
 for row in $(echo "${ac_json}" | jq -c -r '.[]'); do
-    _jq() {
-     echo ${row} | jq -r ${1}
-    }
+	_jq() {
+     		echo ${row} | jq -r ${1}
+    	}
 	chain=$(_jq '.ac_name')
-	
+
 #Get Asset Chain Names from json file
   if [[ " ${skip[@]} " =~ " ${chain} " ]]; then
    	pointless=0
