@@ -22,7 +22,8 @@ Install
 Some initial setup
 ```shell
 cd ~
-git clone https://github.com/StakedChain/Knomp
+# git clone https://github.com/StakedChain/Knomp
+git clone https://github.com/smk762/Knomp  ## change to above when the smk762 repo is pulled to StakedChain
 cd ~/Knomp/install
 ./buildkomodo.sh
 ./installdeps.sh
