@@ -1,0 +1,7 @@
+{
+"name": "STAKEDWW",
+"symbol": "STAKEDWW",
+"algorithm": "equihash",
+"txfee": 0.0001,
+"peerMagic": "6b5fd829"
+}

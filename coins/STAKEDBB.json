@@ -1,0 +1,7 @@
+{
+"name": "STAKEDBB",
+"symbol": "STAKEDBB",
+"algorithm": "equihash",
+"txfee": 0.0001,
+"peerMagic": "945db073"
+}
