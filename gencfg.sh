@@ -1,5 +1,6 @@
 #!/bin/bash
-# Put the address to mine to here, this is smk762's please change to yours.
+# The pool addresses for each coin are defined in wallet.json
+
 walletaddress=RUpV4Mov3Soj34iVNq3hPMCoUFYtB1Jzuf
 
 # Any coins you would like to skip go here
@@ -42,6 +43,9 @@ for row in $(echo "${ac_json}" | jq -c -r '.[]'); do
   if [[ " ${skip[@]} " =~ " ${chain} " ]]; then
         pointless=0
   else
+	echo Configuring $chain
+
+	walletaddress=$(cat pool_wallets.json | jq  -r '.["'$chain'"]')
         string=$(printf '%08x\n' $(komodo-cli -ac_name=$chain getinfo | jq '.magic'))
         magic=${string: -8}
         magicrev=$(echo ${magic:6:2}${magic:4:2}${magic:2:2}${magic:0:2})

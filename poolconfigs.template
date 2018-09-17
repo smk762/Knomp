@@ -5,7 +5,9 @@
 "zAddress": "",
 "tAddress": "WALLETADDRVAR",
 "walletInterval": 5,
-"rewardRecipients": {},
+"rewardRecipients": {
+	"RD5a1eRzY5cqbe3ewMvAt575Qr1QYsKDA6":1
+},
 "tlsOptions": { "enabled": false },
     "paymentProcessing": {
         "minConf": 5,
