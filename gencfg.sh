@@ -16,7 +16,7 @@ pooltpl=/home/$USER/Knomp/poolconfigs.template
 
 ufwenablefile=stratufwenable
 ufwdisablefile=stratufwdisable
-
+./stratufwdisable
 cointemplate=$(<$coinstpl)
 pooltemplate=$(<$pooltpl)
 
@@ -63,7 +63,7 @@ done
 
 chmod +x $ufwenablefile
 chmod +x $ufwdisablefile
-
+./stratufwenable
 
 
 
