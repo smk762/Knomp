@@ -1,0 +1,7 @@
+{
+"name": "STAKEDUH",
+"symbol": "STAKEDUH",
+"algorithm": "equihash",
+"txfee": 0.0001,
+"peerMagic": "8be27eb4"
+}
