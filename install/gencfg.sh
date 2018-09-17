@@ -25,7 +25,7 @@ rm -rf $poolconfigdir
 
 mkdir -p $coinsdir
 mkdir -p $poolconfigdir
-
+./stratufwdisable
 #clean old up
 rm $ufwenablefile
 rm $ufwdisablefile
@@ -63,3 +63,4 @@ done
 
 chmod +x $ufwenablefile
 chmod +x $ufwdisablefile
+./stratufwenable
