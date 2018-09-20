@@ -1,10 +1,9 @@
 #!/bin/bash
 # The pool addresses for each coin are defined in wallet.json
 
-walletaddress=RUpV4Mov3Soj34iVNq3hPMCoUFYtB1Jzuf
 
 # Any coins you would like to skip go here
-declare -a skip=("BEER" "PIZZA")
+declare -a skip=("BEER" "PIZZA" "STAKEDUH")
 
 # Stratum port to start
 stratumport=3030

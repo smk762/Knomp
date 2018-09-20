@@ -1,7 +1,0 @@
-{
-"name": "STAKEDCF",
-"symbol": "STAKEDCF",
-"algorithm": "equihash",
-"txfee": 0.0001,
-"peerMagic": "cca8c66d"
-}
