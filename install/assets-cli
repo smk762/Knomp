@@ -1,5 +1,5 @@
 #!/bin/bash
-cd ~/StakedNotary
+cd ~/Knomp/install
 if [[ -z $1 ]]; then
   echo "assets-cli commands"
   exit

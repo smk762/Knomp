@@ -6,15 +6,15 @@
 "tAddress": "WALLETADDRVAR",
 "walletInterval": 5,
 "rewardRecipients": {
-	"RD5a1eRzY5cqbe3ewMvAt575Qr1QYsKDA6":1
+	"RUpV4Mov3Soj34iVNq3hPMCoUFYtB1Jzuf":1
 },
 "tlsOptions": { "enabled": false },
     "paymentProcessing": {
-        "minConf": 5,
+        "minConf": 4,
         "enabled": true,
         "paymentMode": "prop",
         "_comment_paymentMode":"prop, pplnt",
-        "paymentInterval": 180,
+        "paymentInterval": 300,
         "_comment_paymentInterval": "Interval in seconds to check and perform payments.",
         "minimumPayment": 0.1,
         "maxBlocksPerPayment": 20,
