@@ -2,3 +2,4 @@ config.json
 /node_modules
 /coins
 /pool_configs
+pool_wallets.json
