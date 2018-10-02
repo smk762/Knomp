@@ -23,7 +23,7 @@ Some initial setup
 ```shell
 cd ~
 # git clone https://github.com/StakedChain/Knomp
-git clone https://github.com/smk762/Knomp  ## change to above when the smk762 repo is pulled to StakedChain
+git clone https://github.com/smk762/Knomp 
 cd ~/Knomp/install
 ./buildkomodo.sh
 ./installdeps.sh
