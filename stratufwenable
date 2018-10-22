@@ -1,4 +1,14 @@
-sudo ufw allow 3030 comment 'Stratum STAKEDB1'
-sudo ufw allow 3031 comment 'Stratum STAKEDW1'
-sudo ufw allow 3032 comment 'Stratum STAKEDS1'
-sudo ufw allow 3033 comment 'Stratum STAKEDED'
+sudo ufw allow 44499
+sudo ufw allow 3030
+sudo ufw allow 23763
+sudo ufw allow 3031
+sudo ufw allow 40588
+sudo ufw allow 3032
+sudo ufw allow 27042
+sudo ufw allow 3033
+sudo ufw allow 54363
+sudo ufw allow 3034
+sudo ufw allow 25295
+sudo ufw allow 3035
+sudo ufw allow 46779
+sudo ufw allow 3036
