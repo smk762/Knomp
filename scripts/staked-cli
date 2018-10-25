@@ -5,7 +5,7 @@ if [[ -z $1 ]]; then
   exit
 fi
 
-ac_json=$(curl https://raw.githubusercontent.com/StakedChain/StakedNotary/master/assetchains.json 2>/dev/null)
+ac_json=$(cat $HOME/.komodo/assetchains.json)
 for row in $(echo "${ac_json}" | jq -c -r '.[]'); do
 	_jq() {
      		echo ${row} | jq -r ${1}
@@ -15,4 +15,4 @@ for row in $(echo "${ac_json}" | jq -c -r '.[]'); do
   komodo-cli -ac_name=$chain ${@}
 done
 
-# sudo ln -sf /home/$USER/kmd_pulp/staked-cli /usr/local/bin/staked-cli
+# sudo ln -sf /home/smk762/Knomp/scripts/staked-cli /usr/local/bin/staked-cli

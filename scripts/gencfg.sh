@@ -20,7 +20,6 @@ daemon_stopped () {
 
 # Stratum port to start
 stratumport=3030
-rpcport=7575
 
 #set config dirs
 coinsdir=/home/$USER/Knomp/coins
