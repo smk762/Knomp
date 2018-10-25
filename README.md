@@ -28,6 +28,8 @@ cd ~/Knomp/install
 ./buildkomodo.sh
 ./installdeps.sh
 ./buildredis.sh
+cd ..
+npm install bignum
 ```
 To start redis we need to use a screen or a tmux session to put it into the background, so open one of these and then follow this:
 ```shell
