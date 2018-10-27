@@ -108,10 +108,13 @@ sleep 7
 init_chain "STAKEDB1" "-ac_supply=100000 -ac_reward=1000000000 -ac_cc=667 -addnode=195.201.137.5 -addnode=195.201.20.230 -pubkey=$pubkey"
 orclid=01c542e1c65724007b2a42d16d4b8a7b5d38acdc6e3be190f14f9afd1449a160
 sub=03159df1aa62f6359aed850b27ce07e47e25c16ef7ea867f7dde1de26813db34d8
-while [[ $(komodo-cli -ac_name=STAKEDB1 oraclesinfo $orclid) == null ]]; do
+oracleinfo=$(komodo-cli -ac_name=STAKEDB1 oraclesinfo $orclid)
+result=$oracleinfo | jq -r -c '.result')
+while [[ $result != "success" ]]; do
   echo "awkening oracle"
   sleep 3
-  komodo-cli -ac_name=STAKEDB1 oraclesinfo $orclid
+  oracleinfo=$(komodo-cli -ac_name=STAKEDB1 oraclesinfo $orclid)
+  result=$oracleinfo | jq -r -c '.result')
 done
 echo "oracle responded"
 pubs=$(komodo-cli -ac_name=STAKEDB1 oraclesinfo $orclid | jq -r '.registered | .[] | .publisher')
