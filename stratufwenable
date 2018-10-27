@@ -1,4 +1,4 @@
 sudo ufw allow 44500
 sudo ufw allow 3030
-sudo ufw allow 46780
+sudo ufw allow 23764
 sudo ufw allow 3031
