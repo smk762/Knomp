@@ -1,4 +1,2 @@
 sudo ufw delete allow 3030
 sudo ufw delete allow 3031
-sudo ufw delete allow 3032
-sudo ufw delete allow 3033

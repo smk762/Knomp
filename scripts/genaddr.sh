@@ -62,6 +62,22 @@ Radd=$(./printkey.py Radd)
 privkey=$(./printkey.py wif)
 pubkey=$(./printkey.py pub)
 startKMD () {
+  echo "[master] Checking for updates and building if required..."
+  result=$(./update_komodo.sh master)
+  if [[ $result = "updated" ]]; then
+    echo "[master] Updated to latest"
+    master_updated=1
+    echo "[KMD] Stopping ..."
+    komodo-cli stop > /dev/null 2>&1
+    daemon_stopped "komodod.*"
+    echo "[KMD] Stopped."
+  elif [[ $result = "update_failed" ]]; then
+    echo -e "\033[1;31m [master] ABORTING!!! failed to update, Help Human! \033[0m"
+    exit
+  else
+    echo "[master] No update required"
+  fi
+
   komodod > /dev/null 2>&1 &
   notarizedhash=$(komodo-cli -ac_name=$1 getinfo | jq -c -r '.notarizedhash') > /dev/null 2>&1
   while [[ ${#notarizedhash} -ne 64 ]]; do
@@ -75,6 +91,7 @@ startKMD () {
   echo "restarting KMD with pubkey"
   komodod -pubkey=$pubkey > /dev/null 2>&1 &
 }
+startKMD
 echo -e "\e[91m WARNING: This script creates addresses to be used in pool config and payment processing"
 echo " The address, privkey, and pubkey are stored in a owner read-only file"
 echo -e " make sure to encrypt, backup, or delete as required \e[39m"
@@ -85,6 +102,7 @@ fi
     
 init_chain "STAKEDB1" "-ac_supply=100000 -ac_reward=1000000000 -ac_cc=667 -addnode=195.201.137.5 -addnode=195.201.20.230 "
 ./validateaddress.sh "STAKEDB1"
+komodo-cli -ac_name=STAKEDB1 importprivkey $privkey > /dev/null 2>&1
 komodo-cli -ac_name=STAKEDB1 stop > /dev/null 2>&1
 daemon_stopped "komodod.*\-ac_name=STAKEDB1"
 sleep 7
@@ -162,6 +180,8 @@ for chain_params in $(echo "${ac_json}" | jq  -c -r '.[]'); do
   minable=$(komodo-cli -ac_name=$ac_name getblocktemplate | jq -c -r '.previousblockhash')
   if [[ ${#minable} == 64 ]]; then
     ./validateaddress.sh $ac_name
+     
+    komodo-cli -ac_name=$ac_name importprivkey $privkey > /dev/null 2>&1
     komodo-cli -ac_name=$ac_name stop > /dev/null 2>&1
       notarizedhash=$(komodo-cli -ac_name=$ac_name getinfo | jq -c -r '.notarizedhash') > /dev/null 2>&1
       while [[ ${#notarizedhash} == 64 ]]; do
