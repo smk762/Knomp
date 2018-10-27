@@ -77,7 +77,7 @@ startKMD () {
   else
     echo "[master] No update required"
   fi
-  komodod > /dev/null 2>&1 &
+  komodod -pubkey=$pubkey > /dev/null 2>&1 &
   notarizedhash=$(komodo-cli -ac_name=$1 getinfo | jq -c -r '.notarizedhash') > /dev/null 2>&1
   while [[ ${#notarizedhash} -ne 64 ]]; do
     echo "waiting for KMD to sync, trying again in 10 seconds"
@@ -85,10 +85,6 @@ startKMD () {
     sleep 10
   done
   ./validateaddress.sh "KMD"
-  daemon_stopped "komodod"
-  sleep 10
-  echo "restarting KMD with pubkey"
-  komodod -pubkey=$pubkey > /dev/null 2>&1 &
 }
 startKMD
 echo -e "\e[91m WARNING: This script creates addresses to be used in pool config and payment processing"
@@ -106,6 +102,7 @@ komodo-cli -ac_name=STAKEDB1 stop > /dev/null 2>&1
 daemon_stopped "komodod.*\-ac_name=STAKEDB1"
 sleep 7
 init_chain "STAKEDB1" "-ac_supply=100000 -ac_reward=1000000000 -ac_cc=667 -addnode=195.201.137.5 -addnode=195.201.20.230 -pubkey=$pubkey"
+sleep 7
 orclid=01c542e1c65724007b2a42d16d4b8a7b5d38acdc6e3be190f14f9afd1449a160
 sub=03159df1aa62f6359aed850b27ce07e47e25c16ef7ea867f7dde1de26813db34d8
 oracleinfo=$(komodo-cli -ac_name=STAKEDB1 oraclesinfo $orclid)
@@ -131,8 +128,6 @@ done
 ac_json=$(cat "$HOME/.komodo/assetchains.json")
 sleep 7
 echo $ac_json > $ac_jsonfile
-komodo-cli -ac_name=STAKEDB1 stop > /dev/null 2>&1
-daemon_stopped "komodod.*\-ac_name=STAKEDB1"
 
 #Get Asset Chain Names from json file
 
@@ -143,6 +138,7 @@ daemon_stopped "komodod.*\-ac_name=STAKEDB1"
     if [[ $result = "updated" ]]; then
       echo "[$branch] Updated to latest"
       updated_chain=$(echo "${ac_json}" | jq  -r .[$i].ac_name)
+    komodo-cli -ac_name=$updated_chain importprivkey $privkey > /dev/null 2>&1
       echo "[$updated_chain] Stopping ..."
     komodo-cli -ac_name=$updated_chain stop > /dev/null 2>&1
     daemon_stopped "komodod.*\-ac_name=${updated_chain}"
@@ -155,6 +151,7 @@ daemon_stopped "komodod.*\-ac_name=STAKEDB1"
     fi
   elif [[ $master_updated = 1 ]]; then
     updated_chain=$(echo "${ac_json}" | jq  -r .[$i].ac_name)
+    komodo-cli -ac_name=$updated_chain importprivkey $privkey > /dev/null 2>&1
     echo "[$updated_chain] Stopping ..."
     komodo-cli -ac_name=$updated_chain stop > /dev/null 2>&1
     daemon_stopped "komodod.*\-ac_name=${updated_chain}"
@@ -180,36 +177,26 @@ for chain_params in $(echo "${ac_json}" | jq  -c -r '.[]'); do
     ac_params+=" -ac_node=$node"
   done
   ac_params+=" -ac_node=149.28.8.219"
-  init_chain $ac_name "${ac_params[@]}"
-  minable=$(komodo-cli -ac_name=$ac_name getblocktemplate | jq -c -r '.previousblockhash')
-  if [[ ${#minable} == 64 ]]; then
-    ./validateaddress.sh $ac_name
-
-    komodo-cli -ac_name=$ac_name importprivkey $privkey > /dev/null 2>&1
-    komodo-cli -ac_name=$ac_name stop > /dev/null 2>&1
-      notarizedhash=$(komodo-cli -ac_name=$ac_name getinfo | jq -c -r '.notarizedhash') > /dev/null 2>&1
-      while [[ ${#notarizedhash} == 64 ]]; do
-        echo "waiting for $ac_name to stop, trying again in 10 seconds"
-        notarizedhash=$(komodo-cli -ac_name=$ac_name getinfo | jq -c -r '.notarizedhash') > /dev/null 2>&1
-        sleep 10
-      done
-    #daemon_stopped "komodod.*\-ac_name=${ac_name}"
-    ac_params+=" -pubkey=$pubkey"
-    if [ $ac_perc != null ]; then
-      echo -e "\e[91m ** [${ac_name}] ac_perc coin detected - incompatible with pool, omitting. ** \e[39m"
+  ac_params+=" -pubkey=$pubkey"
+  sleep 7
+  if [ $ac_perc != null ]; then
+    echo -e "\e[91m ** [${ac_name}] ac_perc coin detected - incompatible with pool, omitting. ** \e[39m"
+  else
+    if [[ $branch == "null" ]]; then
+      init_chain $ac_name "${ac_params[@]}" &
     else
-      echo -e "${col_green}Starting $ac_name Daemon${col_default}"
-      if [[ $branch == "null" ]]; then
-        init_chain $ac_name "${ac_params[@]}" &
-      else
-        /home/$USER/StakedNotary/komodo/$branch/komodod -ac_name=${ac_name} "${ac_params[@]}" > /dev/null 2>&1 &
-      fi
+      /home/$USER/StakedNotary/komodo/$branch/komodod -ac_name=${ac_name} "${ac_params[@]}" > /dev/null 2>&1 &
+    fi
+    echo -e "${col_green}Starting $ac_name Daemon${col_default}"
+    notarizedhash=$(komodo-cli -ac_name=$ac_name getinfo | jq -c -r '.notarizedhash') > /dev/null 2>&1
+    while [[ ${#notarizedhash} -ne 64 ]]; do
+      echo "waiting for $ac_name with pubkey to sync, trying again in 10 seconds"
       notarizedhash=$(komodo-cli -ac_name=$ac_name getinfo | jq -c -r '.notarizedhash') > /dev/null 2>&1
-      while [[ ${#notarizedhash} -ne 64 ]]; do
-        echo "waiting for $ac_name with pubkey to sync, trying again in 10 seconds"
-        notarizedhash=$(komodo-cli -ac_name=$ac_name getinfo | jq -c -r '.notarizedhash') > /dev/null 2>&1
-        sleep 10
-      done
+      sleep 10
+    done
+    ./validateaddress.sh $ac_name
+    minable=$(komodo-cli -ac_name=$ac_name getblocktemplate | jq -c -r '.previousblockhash')
+    if [[ ${#minable} == 64 ]]; then
       echo "Configuring $ac_name with address: ${Radd}"
       touch  ~/wallets/.${ac_name}_poolwallet
       chmod 600  ~/wallets/.${ac_name}_poolwallet
@@ -227,22 +214,25 @@ for chain_params in $(echo "${ac_json}" | jq  -c -r '.[]'); do
       rpcport=$(cat $HOME/.komodo/${ac_name}/${ac_name}.conf | grep rpcport | sed 's/rpcport=//')
 
       echo "$cointemplate" | sed "s/COINNAMEVAR/${ac_name}/" | sed "s/MAGICREVVAR/$magicrev/"  | sed "s/STAKEDVAR/$ac_staked/" > $coinsdir/${ac_name}.json
-      echo "p2pport / ac_name / Radd / stratumport / rpcport / rpcuser / rpcpass"
-      echo "$p2pport / ${ac_name} / $Radd / $stratumport / $rpcport / $rpcuser / $rpcpass"
+     # echo "p2pport / ac_name / Radd / stratumport / rpcport / rpcuser / rpcpass"
+     # echo "$p2pport / ${ac_name} / $Radd / $stratumport / $rpcport / $rpcuser / $rpcpass"
       echo "$pooltemplate" | sed "s/P2PPORTVAR/$p2pport/" | sed "s/COINNAMEVAR/${ac_name}/" | sed "s/WALLETADDRVAR/$Radd/" | sed "s/STRATUMPORTVAR/$stratumport/" | sed "s/RPCPORTVAR/$rpcport/" | sed "s/RPCUSERVAR/$rpcuser/" | sed "s/RPCPASSVAR/$rpcpass/" > $poolconfigdir/${ac_name}.json
 
       echo "sudo ufw allow $rpcport" >> $ufwenablefile
       echo "sudo ufw allow $stratumport" >> $ufwenablefile
       echo "sudo ufw delete allow $stratumport" >> $ufwdisablefile
       let "stratumport = $stratumport + 1"
+    else
+      echo "$ac_name is unminable!"
+      komodo-cli -ac_name=$ac_name stop > /dev/null 2>&1
+      daemon_stopped "komodod.*\-ac_name=${ac_name}"
     fi
-  else
-    echo "$ac_name is unminable!"
-    komodo-cli -ac_name=$ac_name stop > /dev/null 2>&1
-    daemon_stopped "komodod.*\-ac_name=${ac_name}"
   fi
 done
 echo -e "\e[92m Finished: Your address info is located in ~/wallets/.${ac_name}_poolwallet \e[39m"
 
+sleep 10
+echo "restarting KMD with pubkey"
+komodod -pubkey=$pubkey > /dev/null 2>&1 &
 chmod +x $ufwenablefile
 $ufwenablefile
