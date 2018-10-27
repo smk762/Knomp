@@ -77,7 +77,6 @@ startKMD () {
   else
     echo "[master] No update required"
   fi
-
   komodod > /dev/null 2>&1 &
   notarizedhash=$(komodo-cli -ac_name=$1 getinfo | jq -c -r '.notarizedhash') > /dev/null 2>&1
   while [[ ${#notarizedhash} -ne 64 ]]; do
@@ -112,7 +111,9 @@ sub=03159df1aa62f6359aed850b27ce07e47e25c16ef7ea867f7dde1de26813db34d8
 while [[ $(komodo-cli -ac_name=STAKEDB1 oraclesinfo $orclid) == null ]]; do
   echo "awkening oracle"
   sleep 3
+  komodo-cli -ac_name=STAKEDB1 oraclesinfo $orclid
 done
+echo "oracle responded"
 pubs=$(komodo-cli -ac_name=STAKEDB1 oraclesinfo $orclid | jq -r '.registered | .[] | .publisher')
 pubsarray=(${pubs///n/ })
 batons=$(komodo-cli -ac_name=STAKEDB1 oraclesinfo $orclid | jq -r '.registered | .[] | .batontxid')
@@ -180,7 +181,7 @@ for chain_params in $(echo "${ac_json}" | jq  -c -r '.[]'); do
   minable=$(komodo-cli -ac_name=$ac_name getblocktemplate | jq -c -r '.previousblockhash')
   if [[ ${#minable} == 64 ]]; then
     ./validateaddress.sh $ac_name
-     
+
     komodo-cli -ac_name=$ac_name importprivkey $privkey > /dev/null 2>&1
     komodo-cli -ac_name=$ac_name stop > /dev/null 2>&1
       notarizedhash=$(komodo-cli -ac_name=$ac_name getinfo | jq -c -r '.notarizedhash') > /dev/null 2>&1
