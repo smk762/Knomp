@@ -75,7 +75,7 @@ startKMD () {
   echo "restarting KMD with pubkey"
   komodod -pubkey=$pubkey > /dev/null 2>&1 &
 }
-echo -e "\e[91m WARNING: This script creates addresses to be use in pool config and payment processing"
+echo -e "\e[91m WARNING: This script creates addresses to be used in pool config and payment processing"
 echo " The address, privkey, and pubkey are stored in a owner read-only file"
 echo -e " make sure to encrypt, backup, or delete as required \e[39m"
 sleep 7
@@ -176,9 +176,9 @@ for chain_params in $(echo "${ac_json}" | jq  -c -r '.[]'); do
     else
       echo -e "${col_green}Starting $ac_name Daemon${col_default}"
       if [[ $branch == "null" ]]; then
-        init_chain $ac_name "${ac_params[@]}" &
+        init_chain $ac_name "${ac_params[@]} -pubkey=${pubkey} -reindex" &
       else
-        /home/$USER/StakedNotary/komodo/$branch/komodod -ac_name=${ac_name} "${ac_params[@]}" -pubkey=${pubkey} > /dev/null 2>&1 &
+        /home/$USER/StakedNotary/komodo/$branch/komodod -ac_name=${ac_name} "${ac_params[@]}" -pubkey=${pubkey} -reindex > /dev/null 2>&1 &
       fi
       notarizedhash=$(komodo-cli -ac_name=$ac_name getinfo | jq -c -r '.notarizedhash') > /dev/null 2>&1
       while [[ ${#notarizedhash} -ne 64 ]]; do
