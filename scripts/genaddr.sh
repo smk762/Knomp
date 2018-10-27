@@ -109,12 +109,12 @@ init_chain "STAKEDB1" "-ac_supply=100000 -ac_reward=1000000000 -ac_cc=667 -addno
 orclid=01c542e1c65724007b2a42d16d4b8a7b5d38acdc6e3be190f14f9afd1449a160
 sub=03159df1aa62f6359aed850b27ce07e47e25c16ef7ea867f7dde1de26813db34d8
 oracleinfo=$(komodo-cli -ac_name=STAKEDB1 oraclesinfo $orclid)
-result=$oracleinfo | jq -r -c '.result')
+result=$(echo $oracleinfo | jq -r -c '.result')
 while [[ $result != "success" ]]; do
   echo "awkening oracle"
   sleep 3
   oracleinfo=$(komodo-cli -ac_name=STAKEDB1 oraclesinfo $orclid)
-  result=$oracleinfo | jq -r -c '.result')
+  result=$(echo $oracleinfo | jq -r -c '.result')
 done
 echo "oracle responded"
 pubs=$(komodo-cli -ac_name=STAKEDB1 oraclesinfo $orclid | jq -r '.registered | .[] | .publisher')
@@ -200,9 +200,9 @@ for chain_params in $(echo "${ac_json}" | jq  -c -r '.[]'); do
     else
       echo -e "${col_green}Starting $ac_name Daemon${col_default}"
       if [[ $branch == "null" ]]; then
-        init_chain $ac_name "${ac_params[@]} -pubkey=${pubkey} -reindex" &
+        init_chain $ac_name "${ac_params[@]}" &
       else
-        /home/$USER/StakedNotary/komodo/$branch/komodod -ac_name=${ac_name} "${ac_params[@]}" -pubkey=${pubkey} -reindex > /dev/null 2>&1 &
+        /home/$USER/StakedNotary/komodo/$branch/komodod -ac_name=${ac_name} "${ac_params[@]}" > /dev/null 2>&1 &
       fi
       notarizedhash=$(komodo-cli -ac_name=$ac_name getinfo | jq -c -r '.notarizedhash') > /dev/null 2>&1
       while [[ ${#notarizedhash} -ne 64 ]]; do
@@ -236,8 +236,10 @@ for chain_params in $(echo "${ac_json}" | jq  -c -r '.[]'); do
       echo "sudo ufw delete allow $stratumport" >> $ufwdisablefile
       let "stratumport = $stratumport + 1"
     fi
-    #komodo-cli -ac_name=$ac_name stop > /dev/null 2>&1
-    #daemon_stopped "komodod.*\-ac_name=${ac_name}"
+  else
+    echo "$ac_name is unminable!"
+    komodo-cli -ac_name=$ac_name stop > /dev/null 2>&1
+    daemon_stopped "komodod.*\-ac_name=${ac_name}"
   fi
 done
 echo -e "\e[92m Finished: Your address info is located in ~/wallets/.${ac_name}_poolwallet \e[39m"
