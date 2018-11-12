@@ -9,9 +9,9 @@
         "poolserver",
         "komodo"
     ],
-    "homepage": "https://github.com/webworker01/knomp",
+    "homepage": "https://github.com/StakedChain/knomp",
     "bugs": {
-        "url": "https://github.com/webworker01/knomp/issues"
+        "url": "https://github.com/StakedChain/knomp/issues"
     },
     "license": "GPL-2.0",
     "author": "webworker01",
