@@ -1,3 +1,4 @@
+dump.rdb
 config.ini
 config.json
 /node_modules
@@ -5,3 +6,5 @@ config.json
 /pool_configs
 pool_wallets.json
 nohup.out
+*_7776
+.vscode
