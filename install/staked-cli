@@ -1,0 +1,18 @@
+#!/bin/bash
+cd ~/komodo
+if [[ -z $1 ]]; then
+  echo "komodo-cli commands"
+  exit
+fi
+
+ac_json=$(curl https://raw.githubusercontent.com/StakedChain/StakedNotary/master/assetchains.json 2>/dev/null)
+for row in $(echo "${ac_json}" | jq -c -r '.[]'); do
+	_jq() {
+     		echo ${row} | jq -r ${1}
+    	}
+	chain=$(_jq '.ac_name')
+  echo $chain
+  komodo-cli -ac_name=$chain ${@}
+done
+
+# sudo ln -sf /home/$USER/kmd_pulp/staked-cli /usr/local/bin/staked-cli

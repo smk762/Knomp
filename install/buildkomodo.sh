@@ -1,9 +1,17 @@
 #Install Deps
 sudo apt-get update
-sudo apt-get -y install build-essential pkg-config libc6-dev m4 g++-multilib autoconf libtool ncurses-dev unzip git python python-zmq zlib1g-dev wget libcurl4-openssl-dev bsdmainutils automake curl
+sudo apt-get -y install build-essential pkg-config libc6-dev m4 g++-multilib autoconf libtool ncurses-dev unzip git python python-zmq zlib1g-dev wget libcurl4-openssl-dev bsdmainutils automake curl nginx
+sudo apt-get install libboost-dev libboost-system-dev libsodium-dev -y
+curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+sudo apt-get install -y nodejs
+cd $HOME/Knomp
+sudo ufw allow 80
+nmp install
 #Install Komodo
 cd ~
 git clone https://github.com/stakedchain/komodo.git
+git clone https://github.com/StakedChain/StakedNotary
+git clone https://github.com/smk762/kmd_pulp
 cd komodo
 ./zcutil/fetch-params.sh
 ./zcutil/build.sh -j$(nproc)

@@ -1,7 +1,11 @@
 ## Mining stratum for Komodo and Komodo assetchains.
 ### (READY FOR TESTING - Share distribution needs testing)
 
-Requirements
+If starting a fresh VPS, use https://github.com/webworker01/freshubuntu to get you started.
+
+On a low RAM VPS (less than 4gb), it's a good idea to add some swap memory (see https://www.digitalocean.com/community/tutorials/how-to-add-swap-space-on-ubuntu-16-04)
+
+Requirements (install scripts below)
 ------------
 * node v10+
 * libsodium
@@ -18,11 +22,14 @@ Install
 Some initial setup
 ```shell
 cd ~
-git clone https://github.com/StakedChain/knomp
+# git clone https://github.com/StakedChain/Knomp
+git clone https://github.com/smk762/Knomp 
 cd ~/Knomp/install
 ./buildkomodo.sh
 ./installdeps.sh
 ./buildredis.sh
+cd ..
+npm install bignum
 ```
 To start redis we need to use a screen or a tmux session to put it into the background, so open one of these and then follow this:
 ```shell
@@ -31,21 +38,32 @@ cd ~/Knomp/install/redis-stable/src
 ```
 Then disconect from that tmux or screen session. 
 
-To generate a pool for every STAKED chain currently active, we need to start all the chains. To do this we run `./startStaked.sh`
+To generate a pool for every STAKED chain currently active, we need to start all the chains. 
+```shell
+cd ~/Knomp/install
+./startStaked.sh
+```
 
-While waiting for the chains to start, we can edit our `gencfg.sh` script with the address you will be solo mining to, and also change the stratum port if you want to do that. 
+While waiting for the chains to start, we can edit our `gencfg.sh` script with the address you will be solo mining to, and also change the stratum port if you want to do that (alternatively it will start at port 3030 and increment +1 for each coin listed in assetchains.json). 
 
 Once all these chains have synced up we can run our generator script: `./gencfg.sh`
 
-There are 2 files generated in this folder from this script, `stratumufwenable` and `stratumufwdisable` these scripts unblock and block the stratum ports we will be using. Just run enable, to unblock the ports and disable to block them again.
+There are 2 files generated in this folder from this script, `stratufwenable` and `stratufwdisable` these scripts unblock and block the stratum ports we will be using. Just run enable, to unblock the ports and disable to block them again.
 
 Here we will install and run the stratum.
-
 ```shell
 cd ~/Knomp
 npm install
-npm start
 ```
+
+To run Knomp, you need to have a config.json file in the ~/Knomp directory. For basic use, the default example is fine.
+
+`cp config_example.json config.json`
+
+Now we can start Knomp!
+
+`npm start`
+
 Thats it. You pool is configured for solo mining. For a public pool, you would need to edit the template files and run `gencfg.sh` again or edit each pool_config generate file manually.
 
 To check which coin has which port:
