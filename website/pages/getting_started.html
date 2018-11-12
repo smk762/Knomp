@@ -2,6 +2,7 @@
     #holder{
         display: flex;
         flex-direction: row;
+        background-color: rgb(36,37,38);
     }
 
     .glow{
@@ -43,6 +44,9 @@
 
     .menuList > a:hover{
         color: #f69b3a;
+    }
+    .poolOption {
+        display:inline-block;
     }
 
     #main{
@@ -124,7 +128,7 @@
         flex-direction: column;
         color: white;
         width: 750px;
-        min-height: 400px;
+        min-height: 300px;
         top: 50px;
         left: 50%;
         margin-left: -375px;
@@ -137,8 +141,8 @@
     #coinInfo > div:first-of-type{
         font-size: 1.8em;
         text-align: center;
-        margin-top: 40px;
-        margin-bottom: 35px;
+        margin-top: 20px;
+        margin-bottom: 15px;
     }
     #coinInfoRows{
         display: flex;
@@ -228,7 +232,7 @@
                     host: it.portalConfig.website.stratumHost
                 }).replace(/"/g, '&quot;');
             }}
-            <a href="#" class="poolOption" data-info="{{=info}}">{{=pool}}</a>
+            <a href="#" class="poolOption" data-info="{{=info}}">{{=pool}}</a><br />
             {{ } }}
         </div>
     </div>
@@ -281,7 +285,7 @@
 
         for (var port in info.ports){
             htmlKeys += '<div class="coinInfoData">URL <span class="coinInfoSubtle">(difficulty ' + info.ports[port].diff + ')</span>:</div>';
-            htmlValues += '<div class="coinInfoData">stratum+tcp://' + info.host + ':' + port + '</div>';
+            htmlValues += '<div class="coinInfoData">' + info.host + ':' + port + '</div>';
         }
 
         if (info.coin)

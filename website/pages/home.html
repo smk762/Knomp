@@ -1,6 +1,6 @@
 <style>
     #boxWelcome{
-        background-color: #0eafc7;
+        background-color: rgb(37,37,37);
         color: white;
         margin: 18px;
     }
@@ -41,10 +41,10 @@
 
 
     #boxStatsLeft{
-        background-color: #b064e1;
+        background-color: rgb(37,37,40);
     }
     #boxStatsRight{
-        background-color: #10bb9c;
+        background-color: rgb(37,37,43);
     }
     .boxStats{
         color: white;
@@ -74,10 +74,10 @@
 </style>
 
 <div class="pure-g-r" id="boxWelcome">
-    <img src="/static/komodo-logo-horizontal-01.png" style="margin: 0 auto; height:150px;">
+    <img src="/static/logo.gif" style="margin: 0 auto; height:150px;">
     
     <div class="pure-u-1">
-        <div style="font-size: 2em; text-align:center; margin-bottom:10px;">KNOMP</div>
+        <div style="font-size: 2em; text-align:center; margin-bottom:10px;">STOMP</div>
     </div>
 </div>
 
@@ -102,6 +102,7 @@
             <div class="boxLowerHeader">Pools / Coins</div>
             <div class="boxStatsList">
                 {{ for(var pool in it.stats.pools) { }}
+            {{ console.log(it); }}
                 <div>
                     <div><i class="fa fa-dot-circle-o"></i>{{=pool}}</div>
                     <div><i class="fa fa-users"></i><span id="statsMiners{{=pool}}">{{=it.stats.pools[pool].workerCount}}</span> Miners</div>
