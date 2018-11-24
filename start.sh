@@ -1,6 +1,6 @@
 #!/bin/bash
 
-
+./stopPool.sh
 # Stratum port to start
 stratumport=3030
 
@@ -33,6 +33,8 @@ longestchain () {
   chain=$1
   if [[ $chain == "KMD" ]]; then
     chain=""
+  else
+    chain="-ac_name=$1"
   fi
   tries=0
   longestchain=0
@@ -51,6 +53,7 @@ longestchain () {
 }
 
 checksync () {
+echo "[$1] Checking for sync..."
   if [[ $1 == "KMD" ]]; then
     chain=""
   else
@@ -234,21 +237,6 @@ echo "[KMD] : $varesult"
   echo "[$chain] : $varesult"
 done
 
-cd ~/SuperNET
-returnstr=$(git pull)
-cd /home/$USER/StakedNotary
-if [[ $returnstr = "Already up-to-date." ]]; then
-  echo "No Iguana update detected"
-else
-  rm iguana/iguana
-fi
-
-if [[ ! -f iguana/iguana ]]; then
-  echo "Building iguana"
-  ./build_iguana
-  pkill -15 iguana
-fi
-
 echo "Checking chains are in sync..."
 
 abort=0
@@ -263,17 +251,19 @@ for chain_params in $(echo "${ac_json}" | jq  -c -r '.[]'); do
   ac_name=$(echo $chain_params | jq -r '.ac_name')
   ac_perc=$(echo $chain_params | jq -r '.ac_perc')
   ac_private=$(echo $chain_params | jq -r '.ac_private')
-	checksync $row
+	checksync "$ac_name"
 	outcome=$(echo $?)
 	if [[ $outcome = 0 ]]; then
 		abort=1
 	fi
 	minable=$(komodo-cli -ac_name=$ac_name getblocktemplate | jq -c -r '.previousblockhash')
-  if [ $ac_perc != null ]; then
-    echo -e "\e[91m ** [${ac_name}] ac_perc coin detected - incompatible with pool, omitting. ** \e[39m"
-  elif [ $ac_private -eq 1 ]; then
+#  if [ $ac_perc != null ]; then
+#    echo -e "\e[91m ** [${ac_name}] ac_perc coin detected - incompatible with pool, omitting. ** \e[39m"
+#  el
+  if [ $ac_private != null ]; then
     echo -e "\e[91m ** [${ac_name}] ac_private coin detected - incompatible with pool, omitting. ** \e[39m"
-  elif [[ ${#minable} == 64 ]]; then
+  #elif [[ ${#minable} == 64 ]]; then
+  else
 	  echo "Configuring $ac_name with address: ${Radd}"
 	  touch  ~/wallets/.${ac_name}_poolwallet
 	  chmod 600  ~/wallets/.${ac_name}_poolwallet
@@ -309,4 +299,5 @@ $ufwenablefile
 echo "Starting Stomp"
 cd $HOME/Knomp
 nohup npm start &
-tail -f nohup.out | grep 2018 &
+sleep 5s
+tail -f nohup.out | grep 2018
