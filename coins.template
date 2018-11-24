@@ -4,5 +4,6 @@
 "algorithm": "equihash",
 "txfee": 0.0001,
 "peerMagic": "MAGICREVVAR",
-"staked": "STAKEDVAR"
+"staked": "STAKEDVAR",
+"disablecb": true
 }
