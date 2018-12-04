@@ -1,0 +1,23 @@
+{
+  "name": "knomp",
+  "version": "1.0.0",
+  "main": "init.js",
+  "dependencies": {
+    "bignum": "^0.13.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/smk762/Knomp.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/smk762/Knomp/issues"
+  },
+  "homepage": "https://github.com/smk762/Knomp#readme",
+  "description": ""
+}
