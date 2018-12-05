@@ -25,7 +25,6 @@ Install
 -------------
 Some initial setup
 ```shell
-<<<<<<< HEAD
 cd ~
 # git clone https://github.com/StakedChain/Knomp
 git clone https://github.com/smk762/Knomp 
@@ -44,13 +43,12 @@ cd ~/Knomp/install/redis-stable/src
 # The following packages are needed to build both Komodo and this stratum:
 sudo apt-get update
 sudo apt-get install build-essential pkg-config libc6-dev m4 g++-multilib autoconf libtool ncurses-dev unzip git python python-zmq zlib1g-dev wget libcurl4-openssl-dev bsdmainutils automake curl libboost-dev libboost-system-dev libsodium-dev jq redis-server -y
->>>>>>> 2263cbe46b52c8e1a1a786a0038b87fc02ddd6aa
+
 ```
 Then disconect from that tmux or screen session. 
 
 To generate a pool for every STAKED chain currently active, we need to start all the chains. 
 ```shell
-<<<<<<< HEAD
 cd ~/Knomp/install
 ./startStaked.sh
 ```
