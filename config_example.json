@@ -34,7 +34,12 @@
         "enabled": true,
         "host": "45.77.127.108",
         "port": 8080,
+<<<<<<< HEAD
         "stratumHost": "pool.cryptocartography.io",
+=======
+        "stratumHost": "stratum.piratepool.io",
+        "template": "default",
+>>>>>>> 2263cbe46b52c8e1a1a786a0038b87fc02ddd6aa
         "stats": {
             "updateInterval": 30,
             "historicalRetention": 14400,
