@@ -8,3 +8,6 @@ pool_wallets.json
 nohup.out
 *_7776
 .vscode
+pool_configs/*.json
+!pool_configs/zclassic_example.json
+coins/
