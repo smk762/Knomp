@@ -1,7 +1,11 @@
 ## Mining stratum for Komodo and Komodo assetchains.
 ### (READY FOR TESTING - Share distribution needs testing)
 
-Requirements
+If starting a fresh VPS, use https://github.com/webworker01/freshubuntu to get you started.
+
+On a low RAM VPS (less than 4gb), it's a good idea to add some swap memory (see https://www.digitalocean.com/community/tutorials/how-to-add-swap-space-on-ubuntu-16-04)
+
+Requirements (install scripts below)
 ------------
 * node v10+
 * libsodium
@@ -21,12 +25,32 @@ Install
 -------------
 Some initial setup
 ```shell
+<<<<<<< HEAD
 # The following packages are needed to build both Komodo and this stratum:
 sudo apt-get update
 sudo apt-get install build-essential pkg-config libc6-dev m4 g++-multilib autoconf libtool ncurses-dev unzip git python python-zmq zlib1g-dev wget libcurl4-openssl-dev bsdmainutils automake curl libboost-dev libboost-system-dev libsodium-dev jq redis-server -y
+=======
+cd ~
+# git clone https://github.com/StakedChain/Knomp
+git clone https://github.com/smk762/Knomp 
+cd ~/Knomp/install
+./buildkomodo.sh
+./installdeps.sh
+./buildredis.sh
+cd ..
+npm install bignum
 ```
-Now, let's build Komodo
+To start redis we need to use a screen or a tmux session to put it into the background, so open one of these and then follow this:
 ```shell
+cd ~/Knomp/install/redis-stable/src
+./redis-server ../redis.conf
+>>>>>>> master
+```
+Then disconect from that tmux or screen session. 
+
+To generate a pool for every STAKED chain currently active, we need to start all the chains. 
+```shell
+<<<<<<< HEAD
 git clone https://github.com/jl777/komodo -b FSM
 cd komodo
 zcutil/fetch-params.sh
@@ -38,18 +62,39 @@ We need to generate the coins files (coin daemon must be running!): `gencfg.sh <
 You can run just gencfg.sh with no coin name to use the assetchains.json in komodo/src directory for all coins. Make sure you edit the template with the correct values you want before running the config generator.
 
 We need node and npminstalled
-
-```shell
-cd ~
-curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+=======
+cd ~/Knomp/install
+./startStaked.sh
 ```
-Now, let's build our stratum and run it (this stage assumes you already have Redis properly installed and running)
 
+While waiting for the chains to start, we can edit our `gencfg.sh` script with the address you will be solo mining to, and also change the stratum port if you want to do that (alternatively it will start at port 3030 and increment +1 for each coin listed in assetchains.json). 
+
+Once all these chains have synced up we can run our generator script: `./gencfg.sh`
+
+There are 2 files generated in this folder from this script, `stratufwenable` and `stratufwdisable` these scripts unblock and block the stratum ports we will be using. Just run enable, to unblock the ports and disable to block them again.
+>>>>>>> master
+
+Here we will install and run the stratum.
 ```shell
-git clone https://github.com/blackjok3rtt/knomp
-cd knomp
+cd ~/Knomp
 npm install
-npm start
+```
+
+To run Knomp, you need to have a config.json file in the ~/Knomp directory. For basic use, the default example is fine.
+
+`cp config_example.json config.json`
+
+Now we can start Knomp!
+
+`npm start`
+
+Thats it. You pool is configured for solo mining. For a public pool, you would need to edit the template files and run `gencfg.sh` again or edit each pool_config generate file manually.
+
+To check which coin has which port:
+```shell
+cd ~/Knomp/pool_configs
+ls (to list the coins)
+cat <coin name> (to print the config file, from there find the port parameter)
 ```
 
 ## Disable Coinbase Mode 
@@ -82,6 +127,8 @@ Do this before running `npm install` above or stop your running instance and run
 
 License
 -------
+
+Forked from @webworker01's great work who forked it from:
 
 Forked from ComputerGenie repo (deleted)
 

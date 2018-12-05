@@ -4,5 +4,10 @@
 "algorithm": "equihash",
 "txfee": 0.0001,
 "peerMagic": "MAGICREVVAR",
+<<<<<<< HEAD
 "disablecb": "true"
+=======
+"staked": "STAKEDVAR",
+"disablecb": true
+>>>>>>> master
 }

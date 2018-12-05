@@ -31,11 +31,15 @@
     },
 
     "website": {
-        "enabled": false,
-        "host": "0.0.0.0",
+        "enabled": true,
+        "host": "45.77.127.108",
         "port": 8080,
+<<<<<<< HEAD
         "stratumHost": "stratum.piratepool.io",
         "template": "default",
+=======
+        "stratumHost": "pool.cryptocartography.io",
+>>>>>>> master
         "stats": {
             "updateInterval": 30,
             "historicalRetention": 14400,

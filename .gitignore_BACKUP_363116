@@ -1,16 +1,12 @@
 dump.rdb
 config.ini
 config.json
-<<<<<<< HEAD
-pool_configs/*.json
+/pool_configs
 !pool_configs/zclassic_example.json
 coins/
-=======
 /node_modules
 /coins
-/pool_configs
 pool_wallets.json
 nohup.out
 *_7776
 .vscode
->>>>>>> master
