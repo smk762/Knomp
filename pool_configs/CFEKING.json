@@ -1,1 +1,55 @@
+{
+"enabled":true,
+"coin": "CFEKING.json",
+"address": "RAe7fSagmbDogxMneD3Sya6maYHdXGEWFA",
+"zAddress": "",
+"tAddress": "RAe7fSagmbDogxMneD3Sya6maYHdXGEWFA",
+"walletInterval": 5,
+"rewardRecipients": {
+},
+"tlsOptions": { "enabled": false },
+    "paymentProcessing": {
+        "minConf": 4,
+        "enabled": true,
+        "paymentMode": "prop",
+        "_comment_paymentMode":"prop, pplnt",
+        "paymentInterval": 300,
+        "_comment_paymentInterval": "Interval in seconds to check and perform payments.",
+        "minimumPayment": 0.1,
+        "maxBlocksPerPayment": 20,
+        "daemon": {
+          "host": "127.0.0.1",
+          "port": 31667,
+          "user": "user546907638",
+          "password": "passad19988ffa76e1c657443dfbfbb7296d57f028c334b19c2d26634c954828b3e932"
+        }
+    },
+"trackShares": { "disable": false },
+"ports": {
+    "3032": {
+        "tls":false,
+        "diff": 0.05,
+        "varDiff": {
+            "minDiff": 0.04,
+            "maxDiff": 16,
+            "targetTime": 15,
+            "retargetTime": 60,
+            "variancePercent": 30
+        }
+    }
+},
+"daemons": [{
+    "host": "127.0.0.1",
+    "port": 31667,
+    "user": "user546907638",
+    "password": "passad19988ffa76e1c657443dfbfbb7296d57f028c334b19c2d26634c954828b3e932"
+}],
 
+"p2p": {
+        "enabled": true,
+        "host": "127.0.0.1",
+        "port": 31666,
+        "disableTransactions": true
+},
+"mposMode": { "enabled": false }
+}

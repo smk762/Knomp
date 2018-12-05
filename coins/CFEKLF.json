@@ -1,1 +1,9 @@
-
+{
+"name": "CFEKLF",
+"symbol": "CFEKLF",
+"algorithm": "equihash",
+"txfee": 0.0001,
+"peerMagic": "41990104",
+"staked": "",
+"disablecb": "true"
+}

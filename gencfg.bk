@@ -76,8 +76,8 @@ listassetchains | while read chain; do
 done
 
 chmod +x $ufwenablefile
-<<<<<<< HEAD
+
+
+
 chmod +x $ufwdisablefile
-=======
-chmod +x $ufwdisablefile
->>>>>>> baa46f3136c410554e880125fcff584a74f46147
+

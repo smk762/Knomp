@@ -33,12 +33,9 @@
     "website": {
         "enabled": true,
         "host": "127.0.0.1",
-        "port": 8080,
         "stratumHost": "pool.cryptocartography.io",
         "template": "default",
-        "host": "127.0.0.1",
         "port": 8080,
-        "stratumHost": "pool.cryptocartography.io",
         "stats": {
             "updateInterval": 30,
             "historicalRetention": 14400,

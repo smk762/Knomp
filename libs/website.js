@@ -244,7 +244,6 @@ module.exports = function(logger){
             next();
 
     });
-    */
 
     app.use(compress());
     app.use('/static', express.static(websiteTemplate + '/static'));

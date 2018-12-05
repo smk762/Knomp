@@ -1,1 +1,9 @@
-
+{
+"name": "CFEKING",
+"symbol": "CFEKING",
+"algorithm": "equihash",
+"txfee": 0.0001,
+"peerMagic": "c20377f5",
+"staked": "",
+"disablecb": "true"
+}

@@ -1,6 +1,6 @@
 #!/bin/bash
 # Put the address to mine to here
-walletaddress=RUfNVCZrbHGgspLcDWbGdBiSLfRgCNgE9M
+walletaddress=RAe7fSagmbDogxMneD3Sya6maYHdXGEWFA
 
 # Any coins you would like to skip go here
 declare -a skip=("BEER" "PIZZA")
@@ -76,8 +76,4 @@ listassetchains | while read chain; do
 done
 
 chmod +x $ufwenablefile
-
-
-
 chmod +x $ufwdisablefile
-

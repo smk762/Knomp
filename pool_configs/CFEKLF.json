@@ -1,1 +1,55 @@
+{
+"enabled":true,
+"coin": "CFEKLF.json",
+"address": "RAe7fSagmbDogxMneD3Sya6maYHdXGEWFA",
+"zAddress": "",
+"tAddress": "RAe7fSagmbDogxMneD3Sya6maYHdXGEWFA",
+"walletInterval": 5,
+"rewardRecipients": {
+},
+"tlsOptions": { "enabled": false },
+    "paymentProcessing": {
+        "minConf": 4,
+        "enabled": true,
+        "paymentMode": "prop",
+        "_comment_paymentMode":"prop, pplnt",
+        "paymentInterval": 300,
+        "_comment_paymentInterval": "Interval in seconds to check and perform payments.",
+        "minimumPayment": 0.1,
+        "maxBlocksPerPayment": 20,
+        "daemon": {
+          "host": "127.0.0.1",
+          "port": 58134,
+          "user": "user3918593840",
+          "password": "pass6332cf6c01baf0559a57cff75bfdb8f193e5080ccf0d6089768d1ed1da95246ece"
+        }
+    },
+"trackShares": { "disable": false },
+"ports": {
+    "3033": {
+        "tls":false,
+        "diff": 0.05,
+        "varDiff": {
+            "minDiff": 0.04,
+            "maxDiff": 16,
+            "targetTime": 15,
+            "retargetTime": 60,
+            "variancePercent": 30
+        }
+    }
+},
+"daemons": [{
+    "host": "127.0.0.1",
+    "port": 58134,
+    "user": "user3918593840",
+    "password": "pass6332cf6c01baf0559a57cff75bfdb8f193e5080ccf0d6089768d1ed1da95246ece"
+}],
 
+"p2p": {
+        "enabled": true,
+        "host": "127.0.0.1",
+        "port": 58133,
+        "disableTransactions": true
+},
+"mposMode": { "enabled": false }
+}

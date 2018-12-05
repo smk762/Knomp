@@ -1,1 +1,9 @@
-
+{
+"name": "CFEKLAMEDUCKS",
+"symbol": "CFEKLAMEDUCKS",
+"algorithm": "equihash",
+"txfee": 0.0001,
+"peerMagic": "62ee0866",
+"staked": "",
+"disablecb": "true"
+}

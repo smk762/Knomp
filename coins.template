@@ -4,10 +4,6 @@
 "algorithm": "equihash",
 "txfee": 0.0001,
 "peerMagic": "MAGICREVVAR",
-<<<<<<< HEAD
 "staked": "STAKEDVAR",
-"disablecb": true
-=======
 "disablecb": "true"
->>>>>>> 2263cbe46b52c8e1a1a786a0038b87fc02ddd6aa
 }

@@ -298,6 +298,4 @@ $ufwenablefile
 
 echo "Starting Stomp"
 cd $HOME/Knomp
-nohup npm start &
-sleep 5s
-tail -f nohup.out | grep 2018
+echo "start with 'npm start'"
