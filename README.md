@@ -39,7 +39,7 @@ To start redis we need to use a screen or a tmux session to put it into the back
 ```shell
 cd ~/Knomp/install/redis-stable/src
 ./redis-server ../redis.conf
-=======
+
 # The following packages are needed to build both Komodo and this stratum:
 sudo apt-get update
 sudo apt-get install build-essential pkg-config libc6-dev m4 g++-multilib autoconf libtool ncurses-dev unzip git python python-zmq zlib1g-dev wget libcurl4-openssl-dev bsdmainutils automake curl libboost-dev libboost-system-dev libsodium-dev jq redis-server -y
@@ -70,7 +70,7 @@ We need to generate the coins files (coin daemon must be running!): `gencfg.sh <
 You can run just gencfg.sh with no coin name to use the assetchains.json in komodo/src directory for all coins. Make sure you edit the template with the correct values you want before running the config generator.
 
 We need node and npminstalled
->>>>>>> 2263cbe46b52c8e1a1a786a0038b87fc02ddd6aa
+
 
 Here we will install and run the stratum.
 ```shell
