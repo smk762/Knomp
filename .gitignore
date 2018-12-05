@@ -1,7 +1,6 @@
 dump.rdb
 config.ini
 config.json
-<<<<<<< HEAD
 /node_modules
 /coins
 /pool_configs
@@ -9,8 +8,6 @@ pool_wallets.json
 nohup.out
 *_7776
 .vscode
-=======
 pool_configs/*.json
 !pool_configs/zclassic_example.json
 coins/
->>>>>>> 2263cbe46b52c8e1a1a786a0038b87fc02ddd6aa
