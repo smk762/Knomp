@@ -1,4 +1,5 @@
 {
+
     "name": "knomp",
     "version": "0.1.0",
     "description": "High performance Stratum poolserver for the Komodo ecosystem in Node.js",

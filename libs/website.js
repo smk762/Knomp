@@ -4,15 +4,15 @@ var path = require('path');
 
 var async = require('async');
 var watch = require('node-watch');
-//var redis = require('redis');
+var redis = require('redis');
 
 var dot = require('dot');
 var express = require('express');
 var bodyParser = require('body-parser');
 var compress = require('compression');
 
-//var Stratum = require('stratum-pool');
-//var util = require('stratum-pool/lib/util.js');
+var Stratum = require('stratum-pool');
+var util = require('stratum-pool/lib/util.js');
 
 var api = require('./api.js');
 
@@ -39,8 +39,8 @@ module.exports = function(logger){
         'tbs.html': 'tbs',
         'workers.html': 'workers',
         'api.html': 'api',
-//        'admin.html': 'admin',
-//        'mining_key.html': 'mining_key',
+        'admin.html': 'admin',
+        'mining_key.html': 'mining_key',
         'miner_stats.html': 'miner_stats',
         'payments.html': 'payments'
     };
@@ -201,10 +201,17 @@ module.exports = function(logger){
         next();
     });
 
-    //Don't think these were used at all
-    // app.get('/key.html', function(req, res, next){
-    //     res.end(keyScriptProcessed);
-    // });
+
+  
+    app.get('/key.html', function(req, res, next){
+        res.end(keyScriptProcessed);
+    });
+
+
+
+
+
+
     //app.get('/stats/shares/:coin', usershares);
     //app.get('/stats/shares', shares);
 	//app.get('/payout/:address', payout);
@@ -218,7 +225,11 @@ module.exports = function(logger){
         portalApi.handleApiRequest(req, res, next);
     });
 
-    /* Don't see what this was really doing
+
+
+
+
+
     app.post('/api/admin/:method', function(req, res, next){
         if (portalConfig.website
             && portalConfig.website.adminCenter
